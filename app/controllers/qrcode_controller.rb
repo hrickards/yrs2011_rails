@@ -1,5 +1,5 @@
 class QrcodeController < ApplicationController
-  require "#{RAILS_ROOT}lib/verify.rb"
+  require "#{RAILS_ROOT}/lib/verify.rb"
   
   def show
     @verify = verify(params[:id], params[:signed_id])
