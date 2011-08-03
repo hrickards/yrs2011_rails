@@ -2,7 +2,7 @@ class PrescriptionsController < ApplicationController
   # GET /prescriptions
   # GET /prescriptions.xml
   def index
-    @prescriptions = Prescription.find_all_by_patient_id @user_id
+    @prescriptions = Prescription.find_all_by_patient_id params[:patient_id]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,7 +14,7 @@ class PrescriptionsController < ApplicationController
   # GET /prescriptions/1.xml
   def show
     @prescription = Prescription.where( :id => params[:id],
-                      :patient_id => @user_id ).first
+                      :patient_id => params[:patient_id] ).first
 
     respond_to do |format|
       format.html # show.html.erb

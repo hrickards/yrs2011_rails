@@ -6,15 +6,15 @@
 
 <p>
   <b>Name:</b>
-  <%= @name %>
+  <%= @patient.name %>
 </p>
 
 <p>
   <b>Address:</b>
-  <%= @address_line_one %>,<br/>
-  <%= @town %>,<br/>
-  <%= @county %>,<br/>
-  <%= @postcode %>,<br/>
+  <%= @patient.address_line_one %>,<br/>
+  <%= @patient.town %>,<br/>
+  <%= @patient.county %>,<br/>
+  <%= @patient.postcode %>,<br/>
 </p>
 
 <p>
@@ -43,4 +43,4 @@
 </p>
 
 
-<%= link_to 'Back', prescriptions_path %>
+<%= link_to 'Back', patient_prescriptions_path(params[:patient_id]) %>

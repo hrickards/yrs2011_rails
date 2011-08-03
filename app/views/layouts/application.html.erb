@@ -10,11 +10,13 @@
 <body>
 <div class="container">
   <ul>
-  <li><%= link_to "Patient History", "/patient_history" %></li>
-    <li><%= link_to "Local", maps_path %></li>
-    <li><%= link_to "My Prescriptions", prescriptions_path %></li>
-    <li><%= link_to "Bookings", gp_bookings_path(1) %></li>
-  </ul>
+  <% unless controller.controller_name == "patients" %>
+    <li><%= link_to "Patient History", "/patient_history" %></li>
+      <li><%= link_to "Local", maps_path %></li>
+      <li><%= link_to "My Prescriptions", patient_prescriptions_path(params[:patient_id]) %></li>
+      <li><%= link_to "Bookings", patient_gp_bookings_path(params[:patient_id], @patient.gp_id) %></li>
+    </ul>
+  <% end %>
   <%= yield %>
 </div>
 </body>

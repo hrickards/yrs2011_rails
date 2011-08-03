@@ -1,7 +1,7 @@
 <h2>Drugs</h2>
 <p>
   Search using the box below to find drug information.
-  <%= form_tag '/drugs', :method => :get do %>
+  <%= form_tag "/patients/#{params[:patient_id]}/drugs", :method => :get do %>
     <%= text_field_tag "name" %>
     <%= submit_tag "Search" %>
   <% end %>
@@ -29,8 +29,8 @@
     <td><%= prescription.strength %></td>
     <td><%= prescription.amount %></td>
     <td><%= prescription.when %></td>
-    <td><%= link_to 'Show', prescription %></td>
-    <td><%= link_to 'Renew', prescription %></td>
+    <td><%= link_to 'Show', patient_prescription_path(params[:patient_id], prescription) %></td>
+    <td><%= link_to 'Renew', patient_prescription_path(params[:patient_id], prescription) %></td>
   </tr>
 <% end %>
 </table>

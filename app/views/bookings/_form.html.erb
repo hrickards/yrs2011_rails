@@ -2,7 +2,7 @@
   <%= stylesheet_link_tag "bookings" %>
 <% end %>
 <div class="bookings_container">
-<%= form_for @booking, :url => gp_bookings_path do |f| %>
+<%= form_for @booking, :url => patient_gp_bookings_path do |f| %>
   <% if @booking.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@booking.errors.count, "error") %> prohibited this booking from being saved:</h2>

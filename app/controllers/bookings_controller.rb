@@ -49,13 +49,14 @@ class BookingsController < ApplicationController
 
   # POST /gps/1/bookings
   def create
-    preset_options = { :user_id => @user_id, :gp_id => @gp_id }
+    preset_options = { :user_id => params[:patient_id], :gp_id => @gp_id }
     options = params[:booking].merge preset_options
     
     @booking = Booking.new options
 
     if @booking.save
-      redirect_to gp_booking_path(:gp_id => @gp_id, :id => @booking.id), 
+      redirect_to patient_gp_booking_path(:patient_id => params[:patient_id],
+        :gp_id => @gp_id, :id => @booking.id), 
         :notice => 'Booking was successfully created.'
     else
       render :action => "new" 

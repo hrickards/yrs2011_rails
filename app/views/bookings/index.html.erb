@@ -5,8 +5,8 @@
 
 <h1>Bookings for GP <%= @gp_name %></h1>
 <div class="nav_links">
-  <%= link_to 'New Booking', new_gp_booking_path %> |
-  <%= link_to image_tag("ical.gif"), gp_bookings_path(:format => :ics) %>
+  <%= link_to 'New Booking', new_patient_gp_booking_path %> |
+  <%= link_to image_tag("ical.gif"), patient_gp_bookings_path(:format => :ics) %>
 </div>
 
 <div class="key_wrapper">
@@ -28,7 +28,10 @@
     </tr>
   </table>
 </div>
-
+<%# http://www.ruby-forum.com/topic/187461 %>
+<% t_now = Time.now %>
+<% t_prev_mon_begin = t_now - (t_now.wday-1)*24*60*60 - t_now.hour*60*60 - t_now.min*60 - t_now.sec %>
+<br/><h3>For week beginning <%= t_prev_mon_begin.strftime "%d/%m/%Y" %></h3>
 <table class="bookings">
   <tr>
     <th>
@@ -50,18 +53,18 @@
         <% day_time = Time.mktime time.year, time.month, day, time.hour,
               time.min %>
         <% bookings = Booking.find_all_by_time day_time %>
-        <% user_bookings = Booking.where :user_id => @user_id, 
+        <% user_bookings = Booking.where :user_id => params[:patient_id], 
             :time => day_time %>
         <% if user_bookings and user_bookings.first %>
           <td class="user_booked">
             <%= link_to "Booked",
-                  gp_booking_path(@gp_id, user_bookings.first.id) %>
+                  patient_gp_booking_path(params[:patient_id], @gp_id, user_bookings.first.id) %>
         <% elsif bookings and bookings.first %>
           <td class="booked">
             Booked
         <% else %>
           <td class="unbooked">
-            <%= link_to "Book", new_gp_booking_path(:time => day_time) %>
+            <%= link_to "Book", new_patient_gp_booking_path(:time => day_time) %>
         <% end %>
         </td>
       <% end %>
