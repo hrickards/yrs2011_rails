@@ -1,13 +1,18 @@
-<h2>Drugs</h2>
-<p>
-  Search using the box below to find drug information.
-  <%= form_tag "/patients/#{params[:patient_id]}/drugs", :method => :get do %>
-    <%= text_field_tag "name" %>
-    <%= submit_tag "Search" %>
-  <% end %>
-</p>
+<div class="centre">
+  <h1>My Prescriptions</h1>
+  <h2>Drugs</h2>
+  <p>
+    Search using the box below to find drug information.
+    <%= form_tag "/patients/#{params[:patient_id]}/drugs", :method => :get do %>
+      <%= text_field_tag "name" %>
+      <%= submit_tag "Search" %>
+    <% end %>
+  </p>
+  <br/>
+  <br/>
 
-<h2>Previous prescriptions</h2>
+  <h2>Previous prescriptions</h2>
+</div>
 <table>
   <tr>
     <th>Prescription ID</th>

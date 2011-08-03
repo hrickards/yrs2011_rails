@@ -31,24 +31,12 @@ div.nav_links {
   float: left;
 }
 
-div.credit {
-  font-style: italic;
-  color: #36393D;
-  padding: 5px;
-}
-
 td.key {
   width: 35px;
 }
 
 div.key_wrapper {
   float: right;
-}
-
-div.bookings_container {
-  width: 520px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 table.key, table.key td {
@@ -58,7 +46,7 @@ table.key, table.key td {
 
 table.key td {
   padding: 3px;
-  border: 2px solid #CC0000;
+  border: 2px solid black;
 }
 
 table.key {
@@ -69,5 +57,5 @@ div.key {
   position: absolute;
   background-color: #fff;
   top: 100px;
-  left: 51%;
+  right: 10px;
 }

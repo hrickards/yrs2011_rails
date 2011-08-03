@@ -9,14 +9,22 @@
 </head>
 <body>
 <div class="container">
-  <ul>
-  <% unless controller.controller_name == "patients" %>
-    <li><%= link_to "Patient History", "/patient_history" %></li>
-      <li><%= link_to "Local", maps_path %></li>
-      <li><%= link_to "My Prescriptions", patient_prescriptions_path(params[:patient_id]) %></li>
-      <li><%= link_to "Bookings", patient_gp_bookings_path(params[:patient_id], @patient.gp_id) %></li>
-    </ul>
-  <% end %>
+  <div class="header">
+    <%= image_tag "logo.png", :width => 200 %>
+    <% unless controller.controller_name == "patients" or controller.controller_name == "maps" %>
+      <div class="user_info">
+        Logged in as <%= @patient.name %>
+      </div>
+      <div class="main_nav_links">
+        <ul>
+          <li><%= link_to_unless_current "Patient History", "/patient_history" %> |</li>
+          <li><%= link_to_unless_current "Local", maps_path %> |</li>
+          <li><%= link_to_unless_current "My Prescriptions", patient_prescriptions_path(params[:patient_id]) %> |</li>
+          <li><%= link_to_unless_current "Bookings", patient_gp_bookings_path(params[:patient_id], @patient.gp_id) %></li>
+        </ul>
+      </div>
+      <% end %>
+  </div>
   <%= yield %>
 </div>
 </body>

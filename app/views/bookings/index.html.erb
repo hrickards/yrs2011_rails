@@ -34,24 +34,21 @@
 <br/><h3>For week beginning <%= t_prev_mon_begin.strftime "%d/%m/%Y" %></h3>
 <table class="bookings">
   <tr>
-    <th>
-    <th>Monday</th>
-    <th>Tuesday</th>
-    <th>Wednesday</th>
-    <th>Thursday</th>
-    <th>Friday</th>
-    <th>Saturday</th>
+    <th></th>
+    <% start_time = (Time.now.beginning_of_day + 10.hours).to_i %>
+    <% end_time = (Time.now.beginning_of_day + 16.hours).to_i %>
+    <% Range.new(start_time, end_time).step(15.minutes) do |seconds| %>
+      <% time = Time.at(seconds) %>
+      <th><%= time.strftime "%H:%M"" "%></th>
+    <% end %>
   </tr>
-  <% start_time = (Time.now.beginning_of_day + 9.hours).to_i %>
-  <% end_time = (Time.now.beginning_of_day + 17.hours).to_i %>
-  <% (start_time) %>
-  <% Range.new(start_time, end_time).step(15.minutes) do |seconds| %>
-    <% time = Time.at(seconds) %>
+  <% (1..6).each do |day| %>
     <tr>
-      <th><%= time.strftime "%H:%M" %></th>
-      <% (1..6).each do |day| %>
+      <th><%= Date::DAYNAMES[day] %></th>
+      <% Range.new(start_time, end_time).step(15.minutes) do |seconds| %>
+        <% time = Time.at(seconds) %>
         <% day_time = Time.mktime time.year, time.month, day, time.hour,
-              time.min %>
+            time.min %>
         <% bookings = Booking.find_all_by_time day_time %>
         <% user_bookings = Booking.where :user_id => params[:patient_id], 
             :time => day_time %>

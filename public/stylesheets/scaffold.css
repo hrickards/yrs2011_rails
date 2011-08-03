@@ -54,3 +54,35 @@ div.field, div.actions {
   font-size: 12px;
   list-style: square;
 }
+
+div.centre {
+  text-align: center;
+}
+
+div.user_info {
+  float: right;
+}
+
+div.main_nav_links ul li {
+  list-style-type: none;
+  display: inline;
+  font-weight: bold;
+}
+
+div.main_nav_links ul li a {
+  color: black;
+}
+
+div.main_nav_links ul li a:hover {
+  color: white;
+}
+
+div.main_nav_links ul {
+  padding: 0;
+}
+
+div.credit {
+  font-style: italic;
+  color: #36393D;
+  padding: 5px;
+}
