@@ -1,7 +1,7 @@
 <% content_for :header_includes do %>
   <%= stylesheet_link_tag "bookings" %>
 <% end %>
-
+<div class="bookings_container">
 <%= form_for @booking, :url => gp_bookings_path do |f| %>
   <% if @booking.errors.any? %>
     <div id="error_explanation">
@@ -32,3 +32,4 @@
     <%= f.submit %>
   </div>
 <% end %>
+</div>

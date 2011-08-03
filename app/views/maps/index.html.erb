@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-<script type="text/javascript" src="gmap3.min.js"></script>
+  
+  <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js", 
+        "http://maps.googleapis.com/maps/api/js?sensor=false", "gmap3.min" %>
 
 <script type="text/javascript">
 $(document).ready(function () {
@@ -128,7 +127,7 @@ $(document).ready(function () {
           marker: {
             options: {
               draggable: false,
-              icon: new google.maps.MarkerImage(type+".png")
+              icon: new google.maps.MarkerImage("http://<%= request.domain %>:<%= request.port %>/images/maps/" + type + ".png")
             }
           }
         },

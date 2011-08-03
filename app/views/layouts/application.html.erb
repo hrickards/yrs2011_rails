@@ -9,6 +9,12 @@
 </head>
 <body>
 <div class="container">
+  <ul>
+  <li><%= link_to "Patient History", "/patient_history" %></li>
+    <li><%= link_to "Local", maps_path %></li>
+    <li><%= link_to "My Prescriptions", prescriptions_path %></li>
+    <li><%= link_to "Bookings", gp_bookings_path(1) %></li>
+  </ul>
   <%= yield %>
 </div>
 </body>
