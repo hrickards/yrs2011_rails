@@ -1,0 +1,24 @@
+<% content_for :header_includes do %>
+  <%= stylesheet_link_tag "bookings" %>
+<% end %>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>GP:</b>
+  <%= @booking.gp_id %>
+</p>
+
+<p>
+  <b>Time:</b>
+  <%= @booking.time %>
+</p>
+
+<p>
+  <b>Message:</b>
+  <%= @booking.message %>
+</p>
+
+
+<%= link_to 'Edit', edit_gp_booking_path(@booking) %> |
+<%= link_to 'Back', gp_bookings_path %>

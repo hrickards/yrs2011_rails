@@ -1,0 +1,73 @@
+<% content_for :header_includes do %>
+  <%= stylesheet_link_tag "bookings" %>
+<% end %>
+
+<h1>Bookings for GP <%= @gp_name %></h1>
+<div class="nav_links">
+  <%= link_to 'New Booking', new_gp_booking_path %> |
+  <%= link_to image_tag("ical.gif"), gp_bookings_path(:format => :ics) %>
+</div>
+
+<div class="key_wrapper">
+  <a id="showhide_key" href="#">Key</a>
+</div>
+<div class="key">
+  <table class="key">
+    <tr>
+      <td class="user_booked key"></td>
+      <td>Booked by you</td>
+    </tr>
+    <tr>
+      <td class="booked key"></td>
+      <td>Already booked by someone else</td>
+    </tr>
+    <tr>
+      <td class="unbooked key"></td>
+      <td>Not yet booked</td>
+    </tr>
+  </table>
+</div>
+
+<table class="bookings">
+  <tr>
+    <th>
+    <th>Monday</th>
+    <th>Tuesday</th>
+    <th>Wednesday</th>
+    <th>Thursday</th>
+    <th>Friday</th>
+    <th>Saturday</th>
+  </tr>
+  <% start_time = (Time.now.beginning_of_day + 9.hours).to_i %>
+  <% end_time = (Time.now.beginning_of_day + 17.hours).to_i %>
+  <% (start_time) %>
+  <% Range.new(start_time, end_time).step(15.minutes) do |seconds| %>
+    <% time = Time.at(seconds) %>
+    <tr>
+      <th><%= time.strftime "%H:%M" %></th>
+      <% (1..6).each do |day| %>
+        <% day_time = Time.mktime time.year, time.month, day, time.hour,
+              time.min %>
+        <% bookings = Booking.find_all_by_time day_time %>
+        <% user_bookings = Booking.where :user_id => @user_id, 
+            :time => day_time %>
+        <% if user_bookings and user_bookings.first %>
+          <td class="user_booked">
+            <%= link_to "Booked",
+                  gp_booking_path(@gp_id, user_bookings.first.id) %>
+        <% elsif bookings and bookings.first %>
+          <td class="booked">
+            Booked
+        <% else %>
+          <td class="unbooked">
+            <%= link_to "Book", new_gp_booking_path(:time => day_time) %>
+        <% end %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+<div class="credit">
+  ICAL logo CC-licensed from <%= link_to "mokolabs",
+    "http://www.flickr.com/photos/mokolabs/127824172/" %>
+</div>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Yrs2011Rails</title>
+  <%= stylesheet_link_tag "scaffold" %>
+  <%= yield :header_includes %>
+  <%= javascript_include_tag :all %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+<div class="container">
+  <%= yield %>
+</div>
+</body>
+</html>

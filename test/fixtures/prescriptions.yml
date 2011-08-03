@@ -1,0 +1,27 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  patient_id: 1
+  name: MyString
+  address_line_one: MyString
+  town: MyString
+  county: MyString
+  postcode: MyString
+  din: MyString
+  item: MyString
+  strength: MyString
+  amount: MyString
+  when: MyString
+
+two:
+  patient_id: 1
+  name: MyString
+  address_line_one: MyString
+  town: MyString
+  county: MyString
+  postcode: MyString
+  din: MyString
+  item: MyString
+  strength: MyString
+  amount: MyString
+  when: MyString

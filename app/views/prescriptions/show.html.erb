@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <b>Patient:</b>
+  <%= @prescription.patient_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @name %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @address_line_one %>,<br/>
+  <%= @town %>,<br/>
+  <%= @county %>,<br/>
+  <%= @postcode %>,<br/>
+</p>
+
+<p>
+  <b>Din:</b>
+  <%= @prescription.din %>
+</p>
+
+<p>
+  <b>Item:</b>
+  <%= @prescription.item %>
+</p>
+
+<p>
+  <b>Strength:</b>
+  <%= @prescription.strength %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%= @prescription.amount %>
+</p>
+
+<p>
+  <b>When:</b>
+  <%= @prescription.when %>
+</p>
+
+
+<%= link_to 'Back', prescriptions_path %>

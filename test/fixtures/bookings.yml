@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  gp_id: 1
+  time: 2011-08-01 14:40:41
+  message: MyText
+
+two:
+  gp_id: 1
+  time: 2011-08-01 14:40:41
+  message: MyText

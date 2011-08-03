@@ -1,0 +1,10 @@
+<% content_for :header_includes do %>
+  <%= stylesheet_link_tag "bookings" %>
+<% end %>
+
+<h1>Editing booking</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', @booking %> |
+<%= link_to 'Back', bookings_path %>

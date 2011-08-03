@@ -1,0 +1,73 @@
+table.bookings {
+  border: 2px solid black;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table.bookings th {
+  font-size: 1.25em;
+}
+
+table.bookings th, table.bookings td {
+  border: 1px dotted gray;
+  padding: 3px;
+}
+
+td.user_booked {
+  background-color: #CDEB8B;  
+}
+
+td.booked {
+  background-color: #C3D9FF;
+}
+
+td.unbooked {
+  background-color: #F9F7ED;
+}
+
+div.nav_links {
+  padding-bottom: 10px;
+  width: 480px;
+  float: left;
+}
+
+div.credit {
+  font-style: italic;
+  color: #36393D;
+  padding: 5px;
+}
+
+td.key {
+  width: 35px;
+}
+
+div.key_wrapper {
+  float: right;
+}
+
+div.container {
+  width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.key, table.key td {
+  border: 1px solid dotted;
+  border-collapse: collapse;
+}
+
+table.key td {
+  padding: 3px;
+  border: 2px solid #CC0000;
+}
+
+table.key {
+  float: right;
+}
+
+div.key {
+  position: absolute;
+  background-color: #fff;
+  top: 70px;
+  left: 51%;
+}
