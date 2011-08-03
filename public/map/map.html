@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="gmap3.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    
+    $('form#postcode').submit(function() {
+      val = $("input#postcode").val();
+      $('div#map').gmap3("destroy");
+      do_the_map(val);
+      return false;
+    });
+    
+    function do_the_map(postcode) {
+    data = "postcode=" + postcode;
+    markers = [];
+    
+    draw_map();
+    
+    $.ajax({
+      url: 'http://nhsgpquality.appspot.com/lookup/pharmacy',
+      dataType: 'jsonp',
+      data: data,
+      async: false,
+      success: function(data) {
+        $.each(data, function(index, value) {
+          lat = value["Latitude"];
+          lng = value["Longitude"];
+          markers.push({
+            lat: lat,
+            lng: lng
+          });
+          add_markers(markers, "pharmacy");
+        });
+      }
+    });
+    
+    $.ajax({
+      url: 'http://nhsgpquality.appspot.com/lookup/gp',
+      dataType: 'jsonp',
+      data: data,
+      async: false,
+      success: function(data) {
+        $.each(data, function(index, value) {
+          lat = value["Latitude"];
+          lng = value["Longitude"];
+          markers.push({
+            lat: lat,
+            lng: lng
+          });
+          add_markers(markers, "pharmacy");
+        });
+      }
+    });
+    
+    $.ajax({
+      url: 'http://nhsgpquality.appspot.com/lookup/dentist',
+      dataType: 'jsonp',
+      data: data,
+      async: false,
+      success: function(data) {
+        $.each(data, function(index, value) {
+          lat = value["Latitude"];
+          lng = value["Longitude"];
+          markers.push({
+            lat: lat,
+            lng: lng
+          });
+          add_markers(markers, "dentist");
+        });
+      }
+    });
+    
+    $.ajax({
+      url: 'http://nhsgpquality.appspot.com/lookup/optician',
+      dataType: 'jsonp',
+      data: data,
+      async: false,
+      success: function(data) {
+        $.each(data, function(index, value) {
+          lat = value["Latitude"];
+          lng = value["Longitude"];
+          markers.push({
+            lat: lat,
+            lng: lng
+          });
+          add_markers(markers, "optician");
+        });
+      }
+    });
+    
+    $.ajax({
+      url: 'http://nhsgpquality.appspot.com/lookup/hospital',
+      dataType: 'jsonp',
+      data: data,
+      async: false,
+      success: function(data) {
+        $.each(data, function(index, value) {
+          lat = value["Latitude"];
+          lng = value["Longitude"];
+          markers.push({
+            lat: lat,
+            lng: lng
+          });
+          add_markers(markers, "hospital");
+        });
+      }
+    });
+    
+    function draw_map() {
+      $('div#map').gmap3(
+        {
+          action: 'init'
+        }
+      );
+    }
+          
+    function add_markers(markers, type) {
+      $('div#map').gmap3(
+        {
+          action: 'addMarkers',
+          markers: markers,
+          marker: {
+            options: {
+              draggable: false,
+              icon: new google.maps.MarkerImage(type+".png")
+            }
+          }
+        },
+        "autofit"
+      );
+    }
+  }
+  });
+</script>
+</head>
+<body>
+  <form id="postcode" >
+    Postcode: <input type="text" id="postcode"></input>
+    <input type="submit" value="Update map">
+  </form>
+  <div id="map" style="height:350px; width:600px"></div>
+</body>
+</html>
