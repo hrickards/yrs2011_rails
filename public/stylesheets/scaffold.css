@@ -14,7 +14,6 @@ pre {
 
 a { color: #000; }
 a:visited { color: #666; }
-a:hover { color: #fff !important; background-color:#000; }
 
 div.field, div.actions {
   margin-bottom: 10px;
@@ -110,9 +109,10 @@ div#logo {
 }
 
 div.main_nav_links {
-  width: 565px;
+  width: 600px;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
 }
 
 #navlist
@@ -228,10 +228,14 @@ div.introduction {
 
 div.testimonial {
   position: absolute;
-  left: 37%;
+  left: 41%;
   top: 120px;
-  width: 35%;
+  width: 280px;
   clear: none;
+}
+
+ul#testimonial_slider {
+  width: 280px;
 }
 
 div.buttons_container {

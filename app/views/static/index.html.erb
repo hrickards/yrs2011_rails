@@ -1,3 +1,14 @@
+<% content_for :header_includes do %>
+  <link rel="stylesheet" type="text/css" href="/bx_styles/bx_styles.css" />
+  <script src="/jquery.bxSlider.min.js" type="text/javascript"></script>
+  
+  <script type="text/javascript">
+  $(document).ready(function(){
+    $('#testimonial_slider').bxSlider();
+  });
+</script>
+<% end %>
+
 <div class="introduction">
   <h2>myNHS</h2>
   <p>
@@ -11,11 +22,33 @@
   <%= link_to "View local medical services", patient_maps_path, :class => "button blue bigrounded" %>
 </div>
 <div class="testimonial">
-  Image here
-  <p>
-    Testimonial here
-  </p>
-  <div class="credit">Credit here</div>
+  <h3>Testimonials</h3>
+  <ul id="testimonial_slider">
+    <li>
+      <p>
+        <%= image_tag 'person1.jpg', :width => 280 %>
+        MyNHS is amazing for use on the go when using the Windows Phone 7 app. It is extremely easy
+        to use and this, along with its incredibly simple interface, allows me to order my prescription.
+        I can then go and collect the prescription using the QR image automatically send to my phone.
+      </p>
+      <div class="credit">Clive Jones, Brighton</div>
+    </li>
+    <li>
+      <p>
+        MyNHS is extremely simple to use, but still remains very powerful. It is the ease of
+        prescribing treatment for my patients that amazes me - there wasn't even any
+        upgrading of my computer system as it is all web-based.
+      </p>
+    </li>
+    <li>
+      <p>
+        On MyNHS I can very easily find my local health services. I can simply type my
+        postcode, then see the contact details and quality information for my local hospitals.
+        I can also book appointments with my GP online, as well as seeing the history of my
+        health and prescriptions.
+      </p>
+    </li>
+  </ul>
 </div>
 <div class="buttons_container"> 
 <% css_class = "button blue bigrounded" %>

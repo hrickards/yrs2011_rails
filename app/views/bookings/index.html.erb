@@ -33,7 +33,7 @@
     <th></th>
     <% start_time = (Time.now.beginning_of_day + 10.hours).to_i %>
     <% end_time = (Time.now.beginning_of_day + 16.hours).to_i %>
-    <% Range.new(start_time, end_time).step(15.minutes) do |seconds| %>
+    <% Range.new(start_time, end_time).step(20.minutes) do |seconds| %>
       <% time = Time.at(seconds) %>
       <th><%= time.strftime "%H:%M"" "%></th>
     <% end %>
@@ -41,7 +41,7 @@
   <% (1..6).each do |day| %>
     <tr>
       <th><%= Date::DAYNAMES[day] %></th>
-      <% Range.new(start_time, end_time).step(15.minutes) do |seconds| %>
+      <% Range.new(start_time, end_time).step(20.minutes) do |seconds| %>
         <% time = Time.at(seconds) %>
         <% day_time = Time.mktime time.year, time.month, day, time.hour,
             time.min %>
