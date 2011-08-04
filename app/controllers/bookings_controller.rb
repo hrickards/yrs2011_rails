@@ -77,6 +77,6 @@ class BookingsController < ApplicationController
   def get_gp
     @gp_id = params[:gp_id]
     @gp_location = "TN22 2HT"
-    @gp_name = "foobar"
+    @gp_name = "Dr. Argerou"
   end
 end
