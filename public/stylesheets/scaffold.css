@@ -314,3 +314,18 @@ div.buttons_container {
 div#prescription_content {
   float: left;
 }
+
+table {
+  border: 2px solid black;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  font-size: 1.25em;
+}
+
+th, td {
+  border: 1px dotted gray;
+  padding: 3px;
+}
