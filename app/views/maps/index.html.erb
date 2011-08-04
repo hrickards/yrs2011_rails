@@ -13,7 +13,7 @@ $(document).ready(function () {
     $('a#gp').toggleClass('selected_layer');
     $('input#postcode').val("TN22 2HT");
     
-    $('form#postcode').submit(function() {
+    $('a#map_update').click(function() {
       val = $("input#postcode").val();
       do_the_map(val);
       return false;
@@ -114,7 +114,9 @@ $(document).ready(function () {
 <body>
   <form id="postcode" >
     Postcode: <input type="text" id="postcode"></input>
-    <input type="submit" value="Update map">
+    <span id="map_button">
+      <a id="map_update" href="#" class="button blue bigrounded">Update Map</a>
+    </span>
   </form>
   <div id="layer_selectors">
     <a id="gp" class="layer_selector" href="#">GPs</a>
