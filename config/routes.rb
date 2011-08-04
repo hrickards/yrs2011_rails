@@ -14,7 +14,7 @@ Yrs2011Rails::Application.routes.draw do
   
   match '/patients/:patient_id/drugs' => 'drugs#show'
   
-  root :to => 'prescriptions#index'
+  root :to => 'prescriptions#index', :patient_id => 1
   
   match '/geocode' => 'geocode#show'
 end
