@@ -1,5 +1,5 @@
 td.user_booked {
-  background-color: #CDEB8B;  
+  background-color: #FFFF88;  
 }
 
 td.booked {
@@ -43,4 +43,16 @@ div.key {
   background-color: #fff;
   top: 120px;
   right: 50px;
+}
+
+table.bookings td {
+  width: 5%;
+  text-align: center;
+}
+
+div.filter_bookings {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+  margin-bottom: -15px;
 }

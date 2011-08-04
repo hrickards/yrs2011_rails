@@ -1,5 +1,12 @@
 <% content_for :header_includes do %>
   <%= stylesheet_link_tag "bookings" %>
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $('select#filter').change(function() {
+      window.location.href = "<%= patient_gp_bookings_path %>?filter=" + $(this).val();
+    });
+  });
+  </script>
 <% end %>
 <div class="bookings_container">
 
@@ -15,15 +22,30 @@
 <div class="key">
   <table class="key">
     <tr>
-      <td class="booked key"></td>
-      <td>Already booked</td>
+      <td class="user_booked key"></td>
+      <td>Already booked by you</td>
     </tr>
+    <% if params[:filter] and params[:filter] == "user" %>
+      <tr>
+        <td class="booked key"></td>
+        <td>Already booked by someone else</td>
+      </tr>
+    <% end %>
     <tr>
       <td class="unbooked key"></td>
       <td>Not yet booked</td>
     </tr>
   </table>
 </div>
+
+
+<div class="filter_bookings">
+  <% option_tags = "<option selected value='all'>All Bookings</option><option value='user'>My Bookings</option>" %>
+  <% option_tags = "<option value='all'>All Bookings</option><option selected value='user'>My Bookings</option>" if
+      params[:filter] and params[:filter] == "user" %>
+  <%= select_tag 'filter', option_tags.html_safe %>
+</div>
+
 <%# http://www.ruby-forum.com/topic/187461 %>
 <% t_now = Time.now %>
 <% t_prev_mon_begin = t_now - (t_now.wday-1)*24*60*60 - t_now.hour*60*60 - t_now.min*60 - t_now.sec %>
@@ -45,8 +67,15 @@
         <% time = Time.at(seconds) %>
         <% day_time = Time.mktime time.year, time.month, day, time.hour,
             time.min %>
-    <% bookings = Booking.find_all_by_time day_time %>
+        <% all_bookings = Booking.find_all_by_time day_time %>
+        <% if params[:filter] == "user" %>
+          <% bookings = Booking.where :user_id => params[:patient_id],
+              :time => day_time %>
+        <% end %>
         <% if bookings and bookings.first %>
+          <td class="user_booked">
+            Booked by you
+        <% elsif all_bookings and all_bookings.first %>
           <td class="booked">
             Booked
         <% else %>
