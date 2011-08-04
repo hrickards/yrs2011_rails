@@ -2,27 +2,36 @@
 <html>
 <head>
   
-  <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js", 
-        "http://maps.googleapis.com/maps/api/js?sensor=false", "gmap3.min" %>
+  <%= javascript_include_tag "jquery.min", 
+        "http://maps.googleapis.com/maps/api/js?sensor=false" %>
 
 <script type="text/javascript">
 $(document).ready(function () {
+  
+    do_the_map("TN22 2HT");
+    get_markers('gp');
+    $('a#gp').toggleClass('selected_layer');
+    $('input#postcode').val("TN22 2HT");
     
     $('form#postcode').submit(function() {
       val = $("input#postcode").val();
-      $('div#map').gmap3("destroy");
       do_the_map(val);
       return false;
     });
     
     function do_the_map(postcode) {
-    data = "postcode=" + postcode;
-    markers = [];
+      data = "postcode=" + postcode;
+      markers = [];
     
-    draw_map();
+      window.markers_array = [];
     
-    $.ajax({
-      url: 'http://nhsgpquality.appspot.com/lookup/pharmacy',
+      draw_map(postcode);
+    }
+    
+    function get_markers(type) {
+      delete_markers();
+      $.ajax({
+      url: 'http://nhsgpquality.appspot.com/lookup/' + type,
       dataType: 'jsonp',
       data: data,
       async: false,
@@ -34,107 +43,71 @@ $(document).ready(function () {
             lat: lat,
             lng: lng
           });
-          add_markers(markers, "pharmacy");
         });
+        add_markers(markers, type);
       }
-    });
+      });
+    }
     
-    $.ajax({
-      url: 'http://nhsgpquality.appspot.com/lookup/gp',
-      dataType: 'jsonp',
-      data: data,
-      async: false,
-      success: function(data) {
-        $.each(data, function(index, value) {
-          lat = value["Latitude"];
-          lng = value["Longitude"];
-          markers.push({
-            lat: lat,
-            lng: lng
-          });
-          add_markers(markers, "pharmacy");
-        });
-      }
-    });
     
-    $.ajax({
-      url: 'http://nhsgpquality.appspot.com/lookup/dentist',
-      dataType: 'jsonp',
-      data: data,
-      async: false,
-      success: function(data) {
-        $.each(data, function(index, value) {
-          lat = value["Latitude"];
-          lng = value["Longitude"];
-          markers.push({
-            lat: lat,
-            lng: lng
-          });
-          add_markers(markers, "dentist");
-        });
-      }
-    });
-    
-    $.ajax({
-      url: 'http://nhsgpquality.appspot.com/lookup/optician',
-      dataType: 'jsonp',
-      data: data,
-      async: false,
-      success: function(data) {
-        $.each(data, function(index, value) {
-          lat = value["Latitude"];
-          lng = value["Longitude"];
-          markers.push({
-            lat: lat,
-            lng: lng
-          });
-          add_markers(markers, "optician");
-        });
-      }
-    });
-    
-    $.ajax({
-      url: 'http://nhsgpquality.appspot.com/lookup/hospital',
-      dataType: 'jsonp',
-      data: data,
-      async: false,
-      success: function(data) {
-        $.each(data, function(index, value) {
-          lat = value["Latitude"];
-          lng = value["Longitude"];
-          markers.push({
-            lat: lat,
-            lng: lng
-          });
-          add_markers(markers, "hospital");
-        });
-      }
-    });
-    
-    function draw_map() {
-      $('div#map').gmap3(
-        {
-          action: 'init'
+    function draw_map(postcode) {
+      $.ajax({
+        url: '/geocode',
+        dataType: 'json',
+        data: 'address=' + postcode + '&sensor=false',
+        success: function(data) {
+          lat = data["results"][0]["geometry"]["location"]["lat"];
+          lng = data["results"][0]["geometry"]["location"]["lng"];
+          actually_draw_map(lat, lng);
         }
-      );
+      });
+    }
+    
+    function actually_draw_map(lat, lng) {
+      var myLatLng = new google.maps.LatLng(lat, lng);
+
+      var options = {
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        zoom: 12,
+        center: myLatLng
+      };
+      var map = new google.maps.Map(document.getElementById("map_canvas"),
+          options);
+      window.map = map;
     }
           
     function add_markers(markers, type) {
-      $('div#map').gmap3(
-        {
-          action: 'addMarkers',
-          markers: markers,
-          marker: {
-            options: {
-              draggable: false,
-              icon: new google.maps.MarkerImage("http://<%= request.domain %>:<%= request.port %>/images/maps/" + type + ".png")
-            }
-          }
-        },
-        "autofit"
-      );
+      $.each(markers, function(index, value) {
+        var latLng = new google.maps.LatLng(value["lat"], value["lng"]);
+        var marker = new google.maps.Marker({
+          position: latLng,
+          map: window.map,
+          icon: '/images/maps/' + type + '.png'
+        });
+        window.markers_array.push(marker);
+      });
     }
-  }
+    
+    // http://code.google.com/apis/maps/documentation/javascript/overlays.html#RemovingOverlays
+    function delete_markers() {
+      if (window.markers_array) {
+        for (i in window.markers_array) {
+          window.markers_array[i].setMap(null);
+        }
+        window.markers_array.length = 0;
+      }
+    }
+
+    $('a.layer_selector').click(function() {
+      get_markers(this.id);
+      $(this).toggleClass('selected_layer');
+      $('a.layer_selector').not(this).removeClass('selected_layer');
+      return false;
+    });
+    
+    // http://stackoverflow.com/questions/1818467/how-to-apply-100-height-to-div                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    # 
+    $('div#map_canvas').height($(window).height() - $('div:last').offset().top - 10);
+    
   });
 </script>
 </head>
@@ -143,6 +116,13 @@ $(document).ready(function () {
     Postcode: <input type="text" id="postcode"></input>
     <input type="submit" value="Update map">
   </form>
-  <div id="map" style="height:350px; width:600px"></div>
+  <div id="layer_selectors">
+    <a id="gp" class="layer_selector" href="#">GPs</a>
+    <a id="hospital" class="layer_selector" href="#">Hospitals</a>
+    <a id="pharmacy" class="layer_selector" href="#">Pharmacies</a>
+    <a id="optician" class="layer_selector" href="#">Opticians</a>
+    <a id="dentist" class="layer_selector" href="#">Dentists</a>
+  </div>
+  <div id="map_canvas" style="height:300px; width:100%"></div>
 </body>
 </html>

@@ -14,7 +14,7 @@ pre {
 
 a { color: #000; }
 a:visited { color: #666; }
-a:hover { color: #fff; background-color:#000; }
+a:hover { color: #fff !important; background-color:#000; }
 
 div.field, div.actions {
   margin-bottom: 10px;
@@ -85,4 +85,9 @@ div.credit {
   font-style: italic;
   color: #36393D;
   padding: 5px;
+}
+
+a.selected_layer {
+  color: black;
+  font-weight: bold;
 }
