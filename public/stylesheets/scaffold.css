@@ -91,3 +91,9 @@ a.selected_layer {
   color: black;
   font-weight: bold;
 }
+
+div.content_container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 520px;
+}

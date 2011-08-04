@@ -17,7 +17,7 @@
       </div>
       <div class="main_nav_links">
         <ul>
-          <li><%= link_to_unless_current "Patient History", "/patient_history" %> |</li>
+          <li><%= link_to_unless_current "Patient History", :controller => "static", :action => "patient_history" %> |</li>
           <li><%= link_to_unless_current "Local", patient_maps_path %> |</li>
           <li><%= link_to_unless_current "My Prescriptions", patient_prescriptions_path(params[:patient_id]) %> |</li>
           <li><%= link_to_unless_current "Bookings", patient_gp_bookings_path(params[:patient_id], @patient.gp_id) %></li>
