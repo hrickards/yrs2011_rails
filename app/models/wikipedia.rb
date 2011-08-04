@@ -8,6 +8,12 @@ class Wikipedia < Hashie::Mash
     
     headers = {"User-Agent" => "Ruby/Rails Contact hrickards@gmail.com"}
     
-    data = get('/index.php?', :query => query, :headers => headers).to_s
+    data_whole = get('/index.php?', :query => query, :headers => headers).to_s
+    
+    parsed_whole = Nokogiri::HTML(data_whole).xpath("//body").to_html
+    index = parsed_whole.index("<h2")
+    
+    data_overview = parsed_whole[0,index]
+    parsed_overview = Nokogiri::HTML(data_overview).xpath("//p").to_html
   end
 end
