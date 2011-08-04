@@ -1,8 +1,14 @@
 <div class="introduction">
   <h2>myNHS</h2>
   <p>
-    Lorem ipsum
+    myNHS allows you to manage all interaction with the NHS, including booking
+    appointments with your General Practitioner and seeing medical health
+    services near you. 
   </p>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </p>
+  <%= link_to "View local medical services", patient_maps_path, :class => "button blue bigrounded" %>
 </div>
 <div class="testimonial">
   Image here
@@ -11,9 +17,10 @@
   </p>
   <div class="credit">Credit here</div>
 </div>
-<div class="buttons_container">
-  Medical Map
-  Book an Appointment
-  My Prescriptions
-  My History
+<div class="buttons_container"> 
+<% css_class = "button blue bigrounded" %>
+<%= link_to "Medical Map", patient_maps_path, :class => css_class  %>
+<%= link_to "Book an Appointment", patient_gp_bookings_path(params[:patient_id], @patient.gp_id), :class => css_class  %>
+<%= link_to "My Prescriptions", patient_prescriptions_path(params[:patient_id]), :class => css_class  %>
+<%= link_to "My History", url_for(:controller => "static", :action => "patient_history"), :class => css_class  %>
 </div>

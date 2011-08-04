@@ -19,7 +19,7 @@
         <ul id="navlist">
           <% css_class = "tab" %>
           <% css_class = "current" if controller.controller_name == "static" and controller.action_name == "index" %>
-          <li><%= link_to "Home", url_for(:controller => "static", :action => "index"), :class => css_class,  %></li>
+          <li><%= link_to "Home", url_for(:controller => "static", :action => "index"), :class => css_class %></li>
           <% css_class = "tab" %>
           <% css_class = "current" if controller.controller_name == "maps" %>
           <li><%= link_to "Medical Map", patient_maps_path, :class => css_class  %></li>
