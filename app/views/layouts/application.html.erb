@@ -10,17 +10,28 @@
 <body>
 <div class="container">
   <div class="header">
-    <%= image_tag "logo.png", :width => 200 %>
+    <div id="logo">
+      <%= image_tag "logo.png", :width => 300 %>
+    </div>
     <% unless controller.controller_name == "patients" or controller.controller_name == "geocode" %>
-      <div class="user_info">
-        Logged in as <%= @patient.name %>
-      </div>
+        <div id="navcontainer">
       <div class="main_nav_links">
-        <ul>
-          <li><%= link_to_unless_current "Patient History", :controller => "static", :action => "patient_history" %> |</li>
-          <li><%= link_to_unless_current "Local", patient_maps_path %> |</li>
-          <li><%= link_to_unless_current "My Prescriptions", patient_prescriptions_path(params[:patient_id]) %> |</li>
-          <li><%= link_to_unless_current "Bookings", patient_gp_bookings_path(params[:patient_id], @patient.gp_id) %></li>
+        <ul id="navlist">
+          <% css_class = "tab" %>
+          <% css_class = "current" if controller.controller_name == "static" and controller.action_name == "index" %>
+          <li><%= link_to "Home", url_for(:controller => "static", :action => "index"), :class => css_class,  %></li>
+          <% css_class = "tab" %>
+          <% css_class = "current" if controller.controller_name == "maps" %>
+          <li><%= link_to "Medical Map", patient_maps_path, :class => css_class  %></li>
+          <% css_class = "tab" %>
+          <% css_class = "current" if controller.controller_name == "bookings" %>
+          <li><%= link_to "Book an Appointment", patient_gp_bookings_path(params[:patient_id], @patient.gp_id), :class => css_class  %></li>
+          <% css_class = "tab" %>
+          <% css_class = "current" if controller.controller_name == "prescriptions" %>
+          <li><%= link_to "My Prescriptions", patient_prescriptions_path(params[:patient_id]), :class => css_class  %></li>
+          <% css_class = "tab" %>
+          <% css_class = "current" if controller.controller_name == "static" and controller.action_name == "patient_history" %>
+          <li><%= link_to "My History", url_for(:controller => "static", :action => "patient_history"), :class => css_class  %></li>
         </ul>
       </div>
       <% end %>

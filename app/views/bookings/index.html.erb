@@ -15,12 +15,8 @@
 <div class="key">
   <table class="key">
     <tr>
-      <td class="user_booked key"></td>
-      <td>Booked by you</td>
-    </tr>
-    <tr>
       <td class="booked key"></td>
-      <td>Already booked by someone else</td>
+      <td>Already booked</td>
     </tr>
     <tr>
       <td class="unbooked key"></td>
@@ -49,14 +45,8 @@
         <% time = Time.at(seconds) %>
         <% day_time = Time.mktime time.year, time.month, day, time.hour,
             time.min %>
-        <% bookings = Booking.find_all_by_time day_time %>
-        <% user_bookings = Booking.where :user_id => params[:patient_id], 
-            :time => day_time %>
-        <% if user_bookings and user_bookings.first %>
-          <td class="user_booked">
-            <%= link_to "Booked",
-                  patient_gp_booking_path(params[:patient_id], @gp_id, user_bookings.first.id) %>
-        <% elsif bookings and bookings.first %>
+    <% bookings = Booking.find_all_by_time day_time %>
+        <% if bookings and bookings.first %>
           <td class="booked">
             Booked
         <% else %>

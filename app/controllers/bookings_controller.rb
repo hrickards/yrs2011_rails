@@ -5,12 +5,11 @@ class BookingsController < ApplicationController
   # GET /gps/1/bookings
   # GET /gps/1/bookings.ics
   def index
-    @bookings = Booking.all
     
     respond_to do |format|
-      format.html { @bookings = Booking.all }
+      format.html {  }
       format.ics {
-        @bookings = Booking.where( :user_id => @user_id).where( "time > ?",
+        @bookings = Booking.where( :user_id => params[:patient_id]).where( "time > ?",
                       Time.now )
         @calendar = Icalendar::Calendar.new
     

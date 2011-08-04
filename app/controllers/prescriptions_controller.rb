@@ -20,7 +20,7 @@ class PrescriptionsController < ApplicationController
                       :patient_id => params[:patient_id] ).first
                       
     id = @prescription.id
-    signed_output = gpg_sign id
+    signed_output = @prescription.signature
     signed_id_trunc = signed_output.lines.to_a[3..-2].join.gsub(/\n/,'')[-15,15]
     @image_path = qr_code_from_id id, signed_id_trunc 
 
