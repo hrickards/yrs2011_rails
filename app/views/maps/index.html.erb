@@ -16,6 +16,16 @@ $(document).ready(function () {
     $('a#map_update').click(function() {
       val = $("input#postcode").val();
       do_the_map(val);
+      get_markers('gp');
+      return false;
+    });
+    
+    
+    
+    $('form#postcode').submit(function() {
+      val = $("input#postcode").val();
+      do_the_map(val);
+      get_markers('gp');
       return false;
     });
     
@@ -34,14 +44,32 @@ $(document).ready(function () {
       url: 'http://nhsgpquality.appspot.com/lookup/' + type,
       dataType: 'jsonp',
       data: data,
-      async: false,
-      success: function(data) {
-        $.each(data, function(index, value) {
+      success: function(data2) {
+        markers = [];
+        $.each(data2, function(index, value) {
           lat = value["Latitude"];
           lng = value["Longitude"];
+          address1 = value["Address1"];
+          address2 = value["Address2"];
+          address3 = value["Address3"];
+          address4 = value["Address4"];
+          address5 = value["Address5"];
+          postcode = value["Postcode"];
+          phone = value["Telephone"];
+          name = value["Name"];
+          
+          
           markers.push({
             lat: lat,
-            lng: lng
+            lng: lng,
+            address1: address1,
+            address2: address2,
+            address3: address3,
+            address4: address4,
+            address5: address5,
+            postcode: postcode,
+            phone: phone,
+            name: name
           });
         });
         add_markers(markers, type);
@@ -79,10 +107,30 @@ $(document).ready(function () {
     function add_markers(markers, type) {
       $.each(markers, function(index, value) {
         var latLng = new google.maps.LatLng(value["lat"], value["lng"]);
+        var name = "<b>" + value["name"] + "</b><br/>";
+        var address = "";
+        $.each([1,2,3,4,5], function(index, n) {
+          var data = value["address" + n];
+          if (data != null) {
+            address = address + data + ",<br/>";
+          }
+        });
+        address = address + value["postcode"] + "<br/>";
+        var phone = value["phone"] + "<br/>";
+        contentString = name + address + phone;
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+        window.old_infowindow = infowindow;
         var marker = new google.maps.Marker({
           position: latLng,
           map: window.map,
           icon: '/images/maps/' + type + '.png'
+        });
+        google.maps.event.addListener(marker, 'click', function() {
+          window.old_infowindow.close();
+          window.old_infowindow = infowindow;
+          infowindow.open(map,marker);
         });
         window.markers_array.push(marker);
       });

@@ -5,7 +5,7 @@
     Search using the box below to find drug information.
     <%= form_tag "/patients/#{params[:patient_id]}/drugs", :method => :get do %>
       <%= text_field_tag "name" %>
-      <%= submit_tag "Search" %>
+      <%= submit_tag "Search", :class => "button blue bigrounded" %>
     <% end %>
   </p>
   <br/>
