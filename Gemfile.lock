@@ -33,6 +33,7 @@ GEM
     crack (0.1.8)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    google-qr (0.2)
     hashie (1.0.0)
     httparty (0.7.8)
       crack (= 0.1.8)
@@ -82,6 +83,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  google-qr
   hashie
   httparty
   icalendar

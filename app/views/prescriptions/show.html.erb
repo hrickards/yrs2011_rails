@@ -1,8 +1,9 @@
 <p id="notice"><%= notice %></p>
-<p>
-  <b>Patient:</b>
-  <%= @prescription.patient_id %>
-</p>
+
+<div id="qr_code">
+  <b>QR Code:</b><br/>
+  <%= image_tag @image_path, :width => 500 %>
+</div>
 
 <p>
   <b>Name:</b>

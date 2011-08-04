@@ -16,7 +16,6 @@
 <table>
   <tr>
     <th>Prescription ID</th>
-    <th>Patient ID</th>
     <th>DIN</th>
     <th>Item</th>
     <th>Strength</th>
@@ -28,7 +27,6 @@
 <% @prescriptions.each do |prescription| %>
   <tr>
     <td><%= prescription.id %></td>
-    <td><%= prescription.patient_id %></td>
     <td><%= prescription.din %></td>
     <td><%= prescription.item %></td>
     <td><%= prescription.strength %></td>
