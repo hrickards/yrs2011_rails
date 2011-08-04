@@ -310,3 +310,7 @@ div.buttons_container {
 .button:visited {
   color: #d9eef7;
 }
+
+div#prescription_content {
+  float: left;
+}

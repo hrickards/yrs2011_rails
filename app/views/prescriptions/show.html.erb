@@ -1,10 +1,25 @@
+<% content_for :header_includes do %>
+<script type="text/javascript">
+  $(document).ready(function() {
+    // Redirect iPhone/iPod visitors
+    // http://jquery-howto.blogspot.com/2010/09/iphone-ipod-detection-using-jquery.html
+    function isiPhone(){
+      return (
+        (navigator.platform.indexOf("iPhone") != -1) ||
+        (navigator.platform.indexOf("iPod") != -1)
+      );
+    }
+    
+    if isiPhone() {
+      $('div.header').hide();
+      $('div#qr_code').hide();
+    }
+  });
+</script>
+<% end %>
+
 <p id="notice"><%= notice %></p>
-
-<div id="qr_code">
-  <b>QR Code:</b><br/>
-  <%= image_tag @image_path, :width => 500 %>
-</div>
-
+<div id="prescription_content">
 <p>
   <b>Name:</b>
   <%= @patient.name %>
@@ -42,6 +57,10 @@
   <b>When:</b>
   <%= @prescription.when %>
 </p>
-
-
 <%= link_to 'Back', patient_prescriptions_path(params[:patient_id]) %>
+</div>
+
+<div id="qr_code">
+  <b>QR Code:</b><br/>
+  <%= image_tag @image_path, :width => 500 %>
+</div>

@@ -3,8 +3,8 @@
 <head>
   <title>Yrs2011Rails</title>
   <%= stylesheet_link_tag "scaffold" %>
-  <%= yield :header_includes %>
   <%= javascript_include_tag :all %>
+  <%= yield :header_includes %>
   <%= csrf_meta_tag %>
 </head>
 <body>
@@ -35,6 +35,7 @@
         </ul>
       </div>
       <% end %>
+    </div>
   </div>
   <%= yield %>
 </div>

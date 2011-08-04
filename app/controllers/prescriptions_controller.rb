@@ -24,9 +24,5 @@ class PrescriptionsController < ApplicationController
     signed_id_trunc = signed_output.lines.to_a[3..-2].join.gsub(/\n/,'')[-15,15]
     @image_path = qr_code_from_id id, signed_id_trunc 
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @prescription }
-    end
   end
 end
