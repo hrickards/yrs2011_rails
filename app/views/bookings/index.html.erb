@@ -74,7 +74,7 @@
         <% end %>
         <% if bookings and bookings.first %>
           <td class="user_booked">
-            Booked by you
+            <%= link_to "Booked by you", patient_gp_booking_path(:id => bookings.first.id) %>
         <% elsif all_bookings and all_bookings.first %>
           <td class="booked">
             Booked
