@@ -21,14 +21,19 @@
 </div>
 <div class="key">
   <table class="key">
-    <tr>
-      <td class="user_booked key"></td>
-      <td>Already booked by you</td>
-    </tr>
     <% if params[:filter] and params[:filter] == "user" %>
+      <tr>
+        <td class="user_booked key"></td>
+        <td>Already booked by you</td>
+      </tr>
       <tr>
         <td class="booked key"></td>
         <td>Already booked by someone else</td>
+      </tr>
+    <% else %>
+      <tr>
+        <td class="booked key"></td>
+        <td>Already booked</td>
       </tr>
     <% end %>
     <tr>

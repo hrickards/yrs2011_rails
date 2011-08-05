@@ -153,8 +153,17 @@ $(document).ready(function () {
       return false;
     });
     
-    // http://stackoverflow.com/questions/1818467/how-to-apply-100-height-to-div                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    # 
-    $('div#map_canvas').height($(window).height() - $('div:last').offset().top - 10);
+    resize_map();
+    
+    // http://stackoverflow.com/questions/838137/jquery-change-height-based-on-browser-size-resize
+    jQuery.event.add(window, "load", resize_map);
+    jQuery.event.add(window, "resize", resize_map);
+    
+    
+    function resize_map() {
+      // http://stackoverflow.com/questions/1818467/how-to-apply-100-height-to-div                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    # 
+      $('div#map_canvas').height($(window).height() - 183);
+    }
     
   });
 </script>
