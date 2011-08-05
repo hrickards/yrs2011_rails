@@ -5,7 +5,7 @@ class BookingsController < ApplicationController
   # GET /gps/1/bookings
   # GET /gps/1/bookings.ics
   def index
-    
+    session[:filter] = params[:filter]
     respond_to do |format|
       format.html {  }
       format.ics {
